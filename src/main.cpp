@@ -8,7 +8,7 @@
 #include <RtcDS1302.h>
 
 // ==== DEBUG FLAG ====
-#define DEBUG 0
+#define DEBUG 1
 
 // Pin RTC
 ThreeWire myWire(4, 5, 2); // IO, SCLK, CE
@@ -93,9 +93,9 @@ void setup()
     else if (now > compiled)
     {
 #if DEBUG
-        Serial.println("RTC is newer than compile time. (this is expected, but still we need to update)");
+        Serial.println("RTC is newer than compile time. (this is expected, but still we need to update, if necessary)");
 #endif
-        Rtc.SetDateTime(compiled);
+        // Rtc.SetDateTime(compiled);
     }
     else if (now == compiled)
     {
