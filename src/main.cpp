@@ -132,6 +132,10 @@ void loop()
     
     if (DEBUG_MODE) {
         Serial.println();
+        Serial.print("Last Day: ");
+        Serial.print(lastDay);
+        Serial.print(", Now Day: ");
+        Serial.println(now.Day());
     }
 
     if (!now.IsValid())
