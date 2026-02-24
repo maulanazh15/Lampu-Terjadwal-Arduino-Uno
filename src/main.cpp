@@ -112,11 +112,17 @@ void loop()
     if (now.Day() != lastDay && lastDay != 99) {
         int driftCorrectionSeconds = -20; 
         
-        // Ambil waktu saat ini dalam format Unix Epoch, tambahkan koreksi (-20 detik)
-        uint32_t correctedEpoch = now.Unix32Time() + driftCorrectionSeconds;
+        // 1. Ambil waktu saat ini dalam format Unix Time, tambahkan koreksi (-20 detik)
+        uint32_t correctedUnix = now.Unix32Time() + driftCorrectionSeconds;
         
-        // Simpan waktu yang sudah dikoreksi kembali ke modul RTC
-        Rtc.SetDateTime(RtcDateTime(correctedEpoch));
+        // 2. Buat objek waktu kosong
+        RtcDateTime correctedTime;
+        
+        // 3. Inisialisasi secara eksplisit bahwa angka tersebut adalah Unix Time (dari 1970)
+        correctedTime.InitWithUnix32Time(correctedUnix);
+        
+        // 4. Simpan waktu yang sudah dikoreksi kembali ke modul RTC
+        Rtc.SetDateTime(correctedTime);
         
         // Perbarui variabel 'now' dengan waktu yang baru dikoreksi
         now = Rtc.GetDateTime(); 
